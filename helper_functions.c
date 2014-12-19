@@ -88,11 +88,11 @@ void
 print_family_info (struct family_info *proc_info)
 {
     //print CPU info
-    printf ("i7z DEBUG:    Stepping %x\n", proc_info->stepping);
-    printf ("i7z DEBUG:    Model %x\n", proc_info->model);
-    printf ("i7z DEBUG:    Family %x\n", proc_info->family);
-    printf ("i7z DEBUG:    Processor Type %x\n", proc_info->processor_type);
-    printf ("i7z DEBUG:    Extended Model %x\n", proc_info->extended_model);
+    //printf ("i7z DEBUG:    Stepping %x\n", proc_info->stepping);
+    //printf ("i7z DEBUG:    Model %x\n", proc_info->model);
+    //printf ("i7z DEBUG:    Family %x\n", proc_info->family);
+    //printf ("i7z DEBUG:    Processor Type %x\n", proc_info->processor_type);
+    //printf ("i7z DEBUG:    Extended Model %x\n", proc_info->extended_model);
     //    printf("    Extended Family %x\n", (short int*)(&proc_info->extended_family));
     //    printf("    Extended Family %d\n", proc_info->extended_family);
 }
@@ -342,7 +342,7 @@ void get_CPUs_info (unsigned int *num_Logical_OS,
 
 void Print_Version_Information()
 {
-	printf ("i7z DEBUG: i7z version: %s\n",i7z_VERSION_INFO);
+	//printf ("i7z DEBUG: i7z version: %s\n",i7z_VERSION_INFO);
 }
 
 
@@ -373,10 +373,10 @@ void Print_Information_Processor(bool* nehalem, bool* sandy_bridge, bool* ivy_br
 
     if (strcmp (vendor_string, "GenuineIntel") == 0) {
     //if (equal_string) {
-        printf ("i7z DEBUG: Found Intel Processor\n");
+        //printf ("i7z DEBUG: Found Intel Processor\n");
     } else {
-        printf
-        ("this was designed to be an intel proc utility. You can perhaps mod it for your machine?\n");
+        //printf
+        //("this was designed to be an intel proc utility. You can perhaps mod it for your machine?\n");
         exit (1);
     }
 
@@ -405,7 +405,7 @@ void Print_Information_Processor(bool* nehalem, bool* sandy_bridge, bool* ivy_br
     //0x3, 0xA - i7, 22nm
     //http://ark.intel.com/SSPECQDF.aspx
     //http://software.intel.com/en-us/articles/intel-processor-identification-with-cpuid-model-and-family-numbers/
-    printf("i7z DEBUG: msr = Model Specific Register\n");
+    //printf("i7z DEBUG: msr = Model Specific Register\n");
     if (proc_info.family >= 0x6)
     {
         if (proc_info.extended_model == 0x1)
@@ -413,15 +413,15 @@ void Print_Information_Processor(bool* nehalem, bool* sandy_bridge, bool* ivy_br
             switch (proc_info.model)
             {
             case 0xA:
-                printf ("i7z DEBUG: Detected a nehalem (i7) - 45nm\n");
+                //printf ("i7z DEBUG: Detected a nehalem (i7) - 45nm\n");
                 break;
             case 0xE:
             case 0xF:
-                printf ("i7z DEBUG: Detected a nehalem (i7/i5/Xeon) - 45nm\n");
+                //printf ("i7z DEBUG: Detected a nehalem (i7/i5/Xeon) - 45nm\n");
 	        break;
             default:
-                printf ("i7z DEBUG: Unknown processor, not exactly based on Nehalem\n");
-                //exit (1);
+                //printf ("i7z DEBUG: Unknown processor, not exactly based on Nehalem\n");
+                exit (1);
             }
    	    *nehalem = true;
 	    *sandy_bridge = false;
@@ -432,14 +432,14 @@ void Print_Information_Processor(bool* nehalem, bool* sandy_bridge, bool* ivy_br
             switch (proc_info.model)
             {
             case 0xE:
-                printf ("i7z DEBUG: Detected a Xeon MP - 45nm (7500, 6500 series)\n");
+                //printf ("i7z DEBUG: Detected a Xeon MP - 45nm (7500, 6500 series)\n");
 		*nehalem = true;
   	    	*sandy_bridge = false;
 		*ivy_bridge = false;
                 *haswell = false;
 		break;
             case 0xF:
-                printf ("i7z DEBUG: Detected a Xeon MP - 32nm (E7 series)\n");
+                //printf ("i7z DEBUG: Detected a Xeon MP - 32nm (E7 series)\n");
 	        *nehalem = true;
   	        *sandy_bridge = false;
 		*ivy_bridge = false;
@@ -451,51 +451,51 @@ void Print_Information_Processor(bool* nehalem, bool* sandy_bridge, bool* ivy_br
   	        *sandy_bridge = false;
 		*ivy_bridge = false;
                 *haswell = false;
-                printf ("i7z DEBUG: Detected an i7/Xeon - 32 nm (westmere)\n");
+                //printf ("i7z DEBUG: Detected an i7/Xeon - 32 nm (westmere)\n");
                 break;
             case 0x5:
 	        *nehalem = true;
   	        *sandy_bridge = false;
 		*ivy_bridge = false;
                 *haswell = false;
-	        printf ("i7z DEBUG: Detected an i3/i5/i7 - 32nm (westmere - 1st generation core)\n");
+	        //printf ("i7z DEBUG: Detected an i3/i5/i7 - 32nm (westmere - 1st generation core)\n");
 	        break;
             case 0xD:
 	        *nehalem = false;
 	  	*sandy_bridge = true;
 		*ivy_bridge = false;
                 *haswell = false;
-		printf ("i7z DEBUG: Detected an i7 - 32nm (haven't seen this version around, do write to me with the model number)\n");
+		//printf ("i7z DEBUG: Detected an i7 - 32nm (haven't seen this version around, do write to me with the model number)\n");
 	        break;
             }
         } else if (proc_info.extended_model == 0x3) {
             switch (proc_info.model)
             {
             case 0xA:
-                printf ("i7z DEBUG: Detected an i7 - 22nm (ivy bridge) \n");
+                //printf ("i7z DEBUG: Detected an i7 - 22nm (ivy bridge) \n");
 		*nehalem = false;
   	    	*sandy_bridge = false;
 		*ivy_bridge = true;
                 *haswell = false;
                 break;
             case 0xC:
-                printf ("i7z DEBUG: Detected an i7 - 22nm (haswell)\n");
+                //printf ("i7z DEBUG: Detected an i7 - 22nm (haswell)\n");
                 *nehalem = false;
                 *sandy_bridge = false;
                 *ivy_bridge = false;
                 *haswell = true;
                 break;
             default:
-                printf("i7z DEBUG: detected a newer model of ivy bridge processor\n");
+                //printf("i7z DEBUG: detected a newer model of ivy bridge processor\n");
                 sleep(5);
             }
         } else {
-            printf ("i7z DEBUG: Unknown processor, not exactly based on Nehalem, Sandy bridge or Ivy Bridge\n");
+            //printf ("i7z DEBUG: Unknown processor, not exactly based on Nehalem, Sandy bridge or Ivy Bridge\n");
             //exit (1);
         }
     } else {
-        printf ("i7z DEBUG: Unknown processor, not exactly based on Nehalem\n");
-        printf ("If you are using an AMD processor, I highly recommend TurionPowerControl http://code.google.com/p/turionpowercontrol/\n");
+        //printf ("i7z DEBUG: Unknown processor, not exactly based on Nehalem\n");
+        //printf ("If you are using an AMD processor, I highly recommend TurionPowerControl http://code.google.com/p/turionpowercontrol/\n");
         exit (1);
     }
 
@@ -506,20 +506,20 @@ void Test_Or_Make_MSR_DEVICE_FILES()
     //test if the msr file exists
     if (access ("/dev/cpu/0/msr", F_OK) == 0)
     {
-        printf ("i7z DEBUG: msr device files exist /dev/cpu/*/msr\n");
+        //printf ("i7z DEBUG: msr device files exist /dev/cpu/*/msr\n");
         if (access ("/dev/cpu/0/msr", W_OK) == 0)
         {
             //a system mght have been set with msr allowable to be written
             //by a normal user so...
             //Do nothing.
-            printf ("i7z DEBUG: You have write permissions to msr device files\n");
+            //printf ("i7z DEBUG: You have write permissions to msr device files\n");
         } else {
-            printf ("i7z DEBUG: You DO NOT have write permissions to msr device files\n");
-            printf ("i7z DEBUG: A solution is to run this program as root\n");
+            //printf ("i7z DEBUG: You DO NOT have write permissions to msr device files\n");
+            //printf ("i7z DEBUG: A solution is to run this program as root\n");
             exit (1);
         }
     } else {
-        printf ("i7z DEBUG: msr device files DO NOT exist, trying out a makedev script\n");
+        //printf ("i7z DEBUG: msr device files DO NOT exist, trying out a makedev script\n");
         if (geteuid () == 0)
         {
             //Try the Makedev script
@@ -534,11 +534,11 @@ void Test_Or_Make_MSR_DEVICE_FILES()
 								n=`expr $n + 1`; \
 							done; \
 							");
-            printf ("i7z DEBUG: modprobbing for msr\n");
+            //printf ("i7z DEBUG: modprobbing for msr\n");
             system ("modprobe msr");
         } else {
-            printf ("i7z DEBUG: You DO NOT have root privileges, mknod to create device entries won't work out\n");
-            printf ("i7z DEBUG: A solution is to run this program as root\n");
+            //printf ("i7z DEBUG: You DO NOT have root privileges, mknod to create device entries won't work out\n");
+            //printf ("i7z DEBUG: A solution is to run this program as root\n");
             exit (1);
         }
     }
@@ -683,7 +683,7 @@ void print_socket_information(struct cpu_socket_info* socket)
             sprintf(socket_list,"%s%d,",socket_list,socket->processor_num[i]);
         }
     }
-    printf("Socket-%d [num of cpus %d physical %d logical %d] %s\n",socket->socket_num,socket->max_cpu,socket->num_physical_cores,socket->num_logical_cores,socket_list);
+    //printf("Socket-%d [num of cpus %d physical %d logical %d] %s\n",socket->socket_num,socket->max_cpu,socket->num_physical_cores,socket->num_logical_cores,socket_list);
 }
 
 void construct_CPU_Heirarchy_info(struct cpu_heirarchy_info* chi)
@@ -735,6 +735,7 @@ void construct_CPU_Heirarchy_info(struct cpu_heirarchy_info* chi)
 
 void print_CPU_Heirarchy(struct cpu_heirarchy_info chi)
 {
+return;
     int i;
     printf("\n------------------------------\n--[core id]--- Other information\n-------------------------------------\n");
     for (i=0;i < chi.max_online_cpu;i++) {

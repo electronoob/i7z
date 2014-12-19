@@ -47,12 +47,12 @@ void logCpuFreq_single_ts( struct timespec*);
 
 
 void print_i7z_socket_single(struct cpu_socket_info socket_0, int printw_offset, int PLATFORM_INFO_MSR,  int PLATFORM_INFO_MSR_high,  int PLATFORM_INFO_MSR_low,
-                             int* online_cpus, double cpu_freq_cpuinfo,  struct timespec one_second_sleep, char TURBO_MODE,
+                             int* online_cpus, double cpu_freq_cpuinfo,  struct timespec one__sleep, char TURBO_MODE,
                              char* HT_ON_str, int* kk_1, U_L_L_I * old_val_CORE, U_L_L_I * old_val_REF, U_L_L_I * old_val_C3, U_L_L_I * old_val_C6, U_L_L_I * old_val_C7,
                              U_L_L_I * old_TSC, int estimated_mhz,  U_L_L_I * new_val_CORE,  U_L_L_I * new_val_REF,  U_L_L_I * new_val_C3,
                              U_L_L_I * new_val_C6,  U_L_L_I * new_val_C7,  U_L_L_I * new_TSC,  double* _FREQ, double* _MULT, long double * C0_time, long double * C1_time,
                              long double * C3_time,	long double * C6_time, long double * C7_time, struct timeval* tvstart, struct timeval* tvstop, int *max_observed_cpu);
-
+// such shit code
 void print_i7z_single ();
 
 int Single_Socket ()
@@ -76,7 +76,7 @@ int Single_Socket ()
 	printf ("i7z DEBUG: guessing Nehalem\n\r");
 
 
-    sleep (3);
+//    sleep (3);
 
     if (use_ncurses){
         //int row, col;
@@ -96,7 +96,7 @@ int Single_Socket ()
 }
 
 void print_i7z_socket_single(struct cpu_socket_info socket_0, int printw_offset, int PLATFORM_INFO_MSR,  int PLATFORM_INFO_MSR_high,  int PLATFORM_INFO_MSR_low,
-                             int* online_cpus, double cpu_freq_cpuinfo,  struct timespec one_second_sleep, char TURBO_MODE,
+                             int* online_cpus, double cpu_freq_cpuinfo,  struct timespec one__sleep, char TURBO_MODE,
                              char* HT_ON_str, int* kk_1, U_L_L_I * old_val_CORE, U_L_L_I * old_val_REF, U_L_L_I * old_val_C3, U_L_L_I * old_val_C6, U_L_L_I * old_val_C7,
                              U_L_L_I * old_TSC, int estimated_mhz,  U_L_L_I * new_val_CORE,  U_L_L_I * new_val_REF,  U_L_L_I * new_val_C3,
                              U_L_L_I * new_val_C6,  U_L_L_I * new_val_C7,  U_L_L_I * new_TSC,  double* _FREQ, double* _MULT, long double * C0_time, long double * C1_time,
@@ -106,6 +106,9 @@ void print_i7z_socket_single(struct cpu_socket_info socket_0, int printw_offset,
 	double TRUE_CPU_FREQ;
 
     //Print a slew of information on the ncurses window
+
+//umm, no!
+/*
     mvprintw (0, 0, "Cpu speed from cpuinfo %0.2fMhz\n", cpu_freq_cpuinfo);
     mvprintw (1, 0,
               "cpuinfo might be wrong if cpufreq is enabled. To guess correctly try estimating via tsc\n");
@@ -116,7 +119,7 @@ void print_i7z_socket_single(struct cpu_socket_info socket_0, int printw_offset,
     cpu_freq_cpuinfo = estimate_MHz ();
     mvprintw (3, 0, "True Frequency (without accounting Turbo) %0.0f MHz\n",
               cpu_freq_cpuinfo);
-
+*/
     int i, ii;
     //int k;
     int CPU_NUM;
@@ -233,7 +236,7 @@ void print_i7z_socket_single(struct cpu_socket_info socket_0, int printw_offset,
         RETURN_IF_TRUE(online_cpus[0]==-1);
 
         //SLEEP FOR 1 SECOND (500ms is also alright)
-        nanosleep (&one_second_sleep, NULL);
+        //nanosleep (2000, NULL);
         IA32_MPERF = get_msr_value (CPU_NUM, 231, 7, 0, &error_indx) - IA32_MPERF;
         SET_IF_TRUE(error_indx,online_cpus[0],-1);
         RETURN_IF_TRUE(online_cpus[0]==-1);
@@ -242,8 +245,9 @@ void print_i7z_socket_single(struct cpu_socket_info socket_0, int printw_offset,
         SET_IF_TRUE(error_indx,online_cpus[0],-1);
         RETURN_IF_TRUE(online_cpus[0]==-1);
 
-        mvprintw (4 + printw_offset, 0,"  CPU Multiplier %dx || Bus clock frequency (BCLK) %0.2f MHz \n",	CPU_Multiplier, BLCK);
+  //      mvprintw (4 + printw_offset, 0,"  CPU Multiplier %dx || Bus clock frequency (BCLK) %0.2f MHz \n",	CPU_Multiplier, BLCK);
 
+/*
         if (numCPUs <= 0) {
             sprintf (string_ptr1, "  Max TURBO Multiplier (if Enabled) with 0 cores is");
             sprintf (string_ptr2, " %dx/%dx ", MAX_TURBO_1C, MAX_TURBO_2C);
@@ -261,11 +265,11 @@ void print_i7z_socket_single(struct cpu_socket_info socket_0, int printw_offset,
             sprintf (string_ptr2, " %dx/%dx/%dx/%dx/%dx/%dx ", MAX_TURBO_1C, MAX_TURBO_2C, MAX_TURBO_3C, MAX_TURBO_4C,
                      MAX_TURBO_5C, MAX_TURBO_6C);
         }
-
+*/
         numCPUs = core_list_size_phy;
         numPhysicalCores = core_list_size_phy;
         numLogicalCores = core_list_size_log;
-
+/*
         //if (socket_0.socket_num == 0) {
             mvprintw (19, 0, "C0 = Processor running without halting ");
             mvprintw (20, 0, "C1 = Processor running with halts (States >C0 are power saver modes with cores idling)");
@@ -277,7 +281,8 @@ void print_i7z_socket_single(struct cpu_socket_info socket_0, int printw_offset,
             mvprintw (25, 0, "'Garbage Values' message printed when garbage values are read");
             mvprintw (26, 0, "  Ctrl+C to exit");
         //}
-
+*/
+/*
         mvprintw (6 + printw_offset, 0, "Socket [%d] - [physical cores=%d, logical cores=%d, max online cores ever=%d] \n", socket_0.socket_num, numPhysicalCores, numLogicalCores,*max_observed_cpu);
 
         mvprintw (9 + printw_offset, 0, "%s %s\n", string_ptr1, string_ptr2);
@@ -291,7 +296,7 @@ void print_i7z_socket_single(struct cpu_socket_info socket_0, int printw_offset,
             TRUE_CPU_FREQ = BLCK * ((double) CPU_Multiplier);
             mvprintw (8 + printw_offset, 0,"  Max Frequency without considering Turbo %0.2f MHz (%0.2f x [%d]) \n", TRUE_CPU_FREQ, BLCK, CPU_Multiplier);
         }
-
+*/
         //Primarily for 32-bit users, found that after sometimes the counters loopback, so inorder
         //to prevent loopback, reset the counters back to 0 after 10 iterations roughly 10 secs
         if (*kk_1 > 10) {
@@ -351,11 +356,11 @@ void print_i7z_socket_single(struct cpu_socket_info socket_0, int printw_offset,
             }
         }
         (*kk_1)++;
-        nanosleep (&one_second_sleep, NULL);
+        nanosleep (&one__sleep, NULL);
 	if(prog_options.i7_version.sandy_bridge || prog_options.i7_version.ivy_bridge || prog_options.i7_version.haswell){
-            mvprintw (11 + printw_offset, 0, "\tCore [core-id]  :Actual Freq (Mult.)\t  C0%%   Halt(C1)%%  C3 %%   C6 %%   C7 %%  Temp      VCore\n");
+            mvprintw (0 + printw_offset, 0, "\tCore [core-id]  :Actual Freq (Mult.)\t  C0%%   Halt(C1)%%  C3 %%   C6 %%   C7 %%  Temp      VCore\n");
 	}else{
-            mvprintw (11 + printw_offset, 0, "\tCore [core-id]  :Actual Freq (Mult.)\t  C0%%   Halt(C1)%%  C3 %%   C6 %%  Temp      VCore\n");
+            mvprintw (0 + printw_offset, 0, "\tCore [core-id]  :Actual Freq (Mult.)\t  C0%%   Halt(C1)%%  C3 %%   C6 %%  Temp      VCore\n");
 	}
         //estimate the CPU speed
         estimated_mhz = estimate_MHz ();
@@ -532,13 +537,13 @@ void print_i7z_socket_single(struct cpu_socket_info socket_0, int printw_offset,
                     }
 	        }
 	        if (print_core[ii])
-                    mvprintw (12 + ii + printw_offset, 0, "\tCore %d [%d]:\t  %0.2f (%.2fx)\t%4.3Lg\t%4.3Lg\t%4.3Lg\t%4.3Lg\t%4.3Lg\t%d\t%0.4f\n",
+                    mvprintw (2 + ii + printw_offset, 0, "\tCore %d [%d]:\t  %0.2f (%.2fx)\t%4.3Lg\t%4.3Lg\t%4.3Lg\t%4.3Lg\t%4.3Lg\t%d\t%0.4f\n",
                           ii + 1, core_list[ii], _FREQ[i], _MULT[i], THRESHOLD_BETWEEN_0_100(C0_time[i] * 100),
                           THRESHOLD_BETWEEN_0_100(c1_time), THRESHOLD_BETWEEN_0_100(C3_time[i] * 100), THRESHOLD_BETWEEN_0_100(C6_time[i] * 100),THRESHOLD_BETWEEN_0_100(C7_time[i] * 100),
 			  Read_Thermal_Status_CPU(core_list[ii]),	//C0_time[i]*100+C1_time[i]*100 around 100
                           Read_Voltage_CPU(core_list[ii]));
 	        else
-                    mvprintw (12 + ii + printw_offset, 0, "\tCore %d [%d]:\t  Garbage Values\n", ii + 1, core_list[ii]);
+                    mvprintw (2 + ii + printw_offset, 0, "\tCore %d [%d]:\t  Garbage Values\n", ii + 1, core_list[ii]);
 	    }else{
 	        //there is a bit of leeway to be had as the total counts might deviate
 	        //if this happens c1_time might be negative so just adjust so that it is thresholded to 0
@@ -549,12 +554,12 @@ void print_i7z_socket_single(struct cpu_socket_info socket_0, int printw_offset,
                     }
 	        }
 	        if (print_core[ii])
-                    mvprintw (12 + ii + printw_offset, 0, "\tCore %d [%d]:\t  %0.2f (%.2fx)\t%4.3Lg\t%4.3Lg\t%4.3Lg\t%4.3Lg\t%d\t%0.4f\n",
+                    mvprintw (2 + ii + printw_offset, 0, "\tCore %d [%d]:\t  %0.2f (%.2fx)\t%4.3Lg\t%4.3Lg\t%4.3Lg\t%4.3Lg\t%d\t%0.4f\n",
                           ii + 1, core_list[ii], _FREQ[i], _MULT[i], THRESHOLD_BETWEEN_0_100(C0_time[i] * 100),
                           THRESHOLD_BETWEEN_0_100(c1_time), THRESHOLD_BETWEEN_0_100(C3_time[i] * 100), THRESHOLD_BETWEEN_0_100(C6_time[i] * 100),Read_Thermal_Status_CPU(core_list[ii]),	//C0_time[i]*100+C1_time[i]*100 around 100
                           Read_Voltage_CPU(core_list[ii]));
 	        else
-                    mvprintw (12 + ii + printw_offset, 0, "\tCore %d [%d]:\t  Garbage Values\n", ii + 1, core_list[ii]);
+                    mvprintw (2 + ii + printw_offset, 0, "\tCore %d [%d]:\t  Garbage Values\n", ii + 1, core_list[ii]);
 	    }
         }
 
@@ -574,9 +579,10 @@ void print_i7z_socket_single(struct cpu_socket_info socket_0, int printw_offset,
         //till 6 print a blank line
 
         //for(ii=*max_observed_cpu; ii<6; ii++)
+/*
         for (ii = numCPUs; ii<6; ii++)
             mvprintw (12 + ii + printw_offset, 0, "\n");
-
+*/
         TRUE_CPU_FREQ = 0;
 
         logOpenFile_single();
@@ -611,10 +617,10 @@ void print_i7z_socket_single(struct cpu_socket_info socket_0, int printw_offset,
         }
 		//        logCpuCstates_single_c("\n");
         logCloseFile_single();
-
+/*
         mvprintw (10 + printw_offset, 0,
                   "  Real Current Frequency %0.2f MHz [%0.2f x %0.2f] (Max of below)\n", TRUE_CPU_FREQ, BLCK, TRUE_CPU_FREQ/BLCK);
-
+*/
         refresh ();
 
         //shift the new values to the old counter values
@@ -703,9 +709,9 @@ void print_i7z_single ()
     double _FREQ[2][numCPUs_max], _MULT[2][numCPUs_max];
     struct timeval tvstart[2][numCPUs_max], tvstop[2][numCPUs_max];
 
-    struct timespec one_second_sleep;
-    one_second_sleep.tv_sec = 0;
-    one_second_sleep.tv_nsec = 499999999;	// 500msec
+    struct timespec one__sleep;
+    one__sleep.tv_sec = 0;
+    one__sleep.tv_nsec = 200000000;
 
 
 
@@ -762,7 +768,7 @@ void print_i7z_single ()
         if(socket_0.max_cpu>1){
             socket_num=0;
             print_i7z_socket_single(socket_0, printw_offset, PLATFORM_INFO_MSR,  PLATFORM_INFO_MSR_high, PLATFORM_INFO_MSR_low,
-                                online_cpus, cpu_freq_cpuinfo, one_second_sleep, TURBO_MODE, HT_ON_str, &kk_1, old_val_CORE[socket_num],
+                                online_cpus, cpu_freq_cpuinfo, one__sleep, TURBO_MODE, HT_ON_str, &kk_1, old_val_CORE[socket_num],
                                 old_val_REF[socket_num], old_val_C3[socket_num], old_val_C6[socket_num],old_val_C7[socket_num],
                                 old_TSC[socket_num], estimated_mhz, new_val_CORE[socket_num], new_val_REF[socket_num], new_val_C3[socket_num],
                                 new_val_C6[socket_num],new_val_C7[socket_num], new_TSC[socket_num], _FREQ[socket_num], _MULT[socket_num], C0_time[socket_num], C1_time[socket_num],
@@ -770,7 +776,7 @@ void print_i7z_single ()
 	}else{
 	    socket_num=1;
 	    print_i7z_socket_single(socket_1, printw_offset, PLATFORM_INFO_MSR,  PLATFORM_INFO_MSR_high, PLATFORM_INFO_MSR_low,
-		                online_cpus, cpu_freq_cpuinfo, one_second_sleep, TURBO_MODE, HT_ON_str, &kk_1, old_val_CORE[socket_num],
+		                online_cpus, cpu_freq_cpuinfo, one__sleep, TURBO_MODE, HT_ON_str, &kk_1, old_val_CORE[socket_num],
                                 old_val_REF[socket_num], old_val_C3[socket_num], old_val_C6[socket_num],old_val_C7[socket_num],
                                 old_TSC[socket_num], estimated_mhz, new_val_CORE[socket_num], new_val_REF[socket_num], new_val_C3[socket_num],
                                 new_val_C6[socket_num],new_val_C7[socket_num], new_TSC[socket_num], _FREQ[socket_num], _MULT[socket_num], C0_time[socket_num], C1_time[socket_num],
@@ -781,444 +787,3 @@ void print_i7z_single ()
 }
 
 
-/*int Single_Socket(){
-	  int row, col;	// to store the number of rows and    //
-					// the number of colums of the screen //
-					// for NCURSES                        //
-
-  	  printf ("i7z DEBUG: In i7z Single_Socket()\n");
-
-	  sleep (3);
-
-	  //iterator
-	  int i;
-
-	  int error_indx;
-	  //cpu multiplier
-	  int CPU_Multiplier;
-	  //current blck value
-	  float BLCK;
-	  //turbo_mode enabled/disabled flag
-	  char TURBO_MODE;
-
-      int online_cpus[8];
-      SET_ONLINE_ARRAY_PLUS1(online_cpus)
-
-	  //Use Core-1 as the one to check for the turbo limit
-	  //Core number shouldnt matter
-	  int CPU_NUM = 0;
-	  //bits from 0-63 in this store the various maximum turbo limits
-	  int MSR_TURBO_RATIO_LIMIT = 429;
-	  // 3B defines till Max 4 Core and the rest bit values from 32:63 were reserved.
-	  //Bits:0-7  - core1
-	  int MAX_TURBO_1C = get_msr_value (CPU_NUM, MSR_TURBO_RATIO_LIMIT, 7, 0, &error_indx);
-	  //Bits:15-8 - core2
-	  int MAX_TURBO_2C = get_msr_value (CPU_NUM, MSR_TURBO_RATIO_LIMIT, 15, 8, &error_indx);
-	  //Bits:23-16 - core3
-	  int MAX_TURBO_3C = get_msr_value (CPU_NUM, MSR_TURBO_RATIO_LIMIT, 23, 16, &error_indx);
-	  //Bits:31-24 - core4
-	  int MAX_TURBO_4C = get_msr_value (CPU_NUM, MSR_TURBO_RATIO_LIMIT, 31, 24, &error_indx);
-
-	  //gulftown/Hexacore support
-	  //technically these should be the bits to get for core 5,6
-	  //Bits:39-32 - core4
-	  int MAX_TURBO_5C = get_msr_value (CPU_NUM, MSR_TURBO_RATIO_LIMIT, 39, 32, &error_indx);
-	  //Bits:47-40 - core4
-	  int MAX_TURBO_6C = get_msr_value (CPU_NUM, MSR_TURBO_RATIO_LIMIT, 47, 40, &error_indx);
-
-
-
-	  //CPUINFO is wrong for i7 but correct for the number of physical and logical cores present
-	  //If Hyperthreading is enabled then, multiple logical processors will share a common CORE ID
-	  //http://www.redhat.com/magazine/022aug06/departments/tips_tricks/
-	  system
-		("cat /proc/cpuinfo |grep MHz|sed 's/cpu\\sMHz\\s*:\\s//'|tail -n 1 > /tmp/cpufreq.txt");
-	  system
-		("grep \"core id\" /proc/cpuinfo |sort -|uniq -|wc -l > /tmp/numPhysical.txt");
-	  system
-		("grep \"processor\" /proc/cpuinfo |sort -|uniq -|wc -l > /tmp/numLogical.txt");
-	  //At this step, /tmp/numPhysical contains number of physical cores in machine and
-	  //                      /tmp/numPhysical contains number of logical cores in machine
-
-
-	  //Open the parsed cpufreq file and obtain the cpufreq from /proc/cpuinfo
-	  FILE *tmp_file;
-	  tmp_file = fopen ("/tmp/cpufreq.txt", "r");
-	  char tmp_str[30];
-	  fgets (tmp_str, 30, tmp_file);
-	  double cpu_freq_cpuinfo = atof (tmp_str);
-	  fclose (tmp_file);
-
-	  //Parse the numPhysical and numLogical file to obtain the number of physical and logical core
-	  tmp_file = fopen ("/tmp/numPhysical.txt", "r");
-	  fgets (tmp_str, 30, tmp_file);
-	  numPhysicalCores = atoi (tmp_str);
-	  fclose (tmp_file);
-
-	  tmp_file = fopen ("/tmp/numLogical.txt", "r");
-	  fgets (tmp_str, 30, tmp_file);
-	  numLogicalCores = atoi (tmp_str);
-	  fclose (tmp_file);
-	  //reading of the number of cores is done
-
-	  fflush (stdout);
-	  sleep (1);
-
-	  //Setup stuff for ncurses
-	  initscr ();			// start the curses mode
-	  start_color ();
-	  getmaxyx (stdscr, row, col);	// get the number of rows and columns
-	  refresh ();
-	  //Setup for ncurses completed
-
-	  //Print a slew of information on the ncurses window
-	  mvprintw (0, 0, "Cpu speed from cpuinfo %0.2fMhz\n", cpu_freq_cpuinfo);
-	  mvprintw (1, 0,
-			"cpuinfo might be wrong if cpufreq is enabled. To guess correctly try estimating via tsc\n");
-	  mvprintw (2, 0, "Linux's inbuilt cpu_khz code emulated now\n\n");
-
-
-	  //estimate the freq using the estimate_MHz() code that is almost mhz accurate
-	  cpu_freq_cpuinfo = estimate_MHz ();
-	  mvprintw (3, 0, "True Frequency (without accounting Turbo) %0.0f MHz\n",
-			cpu_freq_cpuinfo);
-
-
-	  //MSR number and hi:low bit of that MSR
-	  //This msr contains a lot of stuff, per socket wise
-	  //one can pass any core number and then get in multiplier etc
-	  int PLATFORM_INFO_MSR = 206;	//CE 15:8
-	  int PLATFORM_INFO_MSR_low = 8;
-	  int PLATFORM_INFO_MSR_high = 15;
-
-	  //We just need one CPU (we use Core-1) to figure out the multiplier and the bus clock freq.
-	  //multiplier doesnt automatically include turbo
-	  //note turbo is not guaranteed, only promised
-	  //So this msr will only reflect the actual multiplier, rest has to be figured out
-	  CPU_NUM = 0;
-	  CPU_Multiplier = get_msr_value (CPU_NUM, PLATFORM_INFO_MSR, PLATFORM_INFO_MSR_high, PLATFORM_INFO_MSR_low, &error_indx);
-	  SET_IF_TRUE(error_indx,online_cpus[0],-1);
-
-	  //Blck is basically the true speed divided by the multiplier
-	  BLCK = cpu_freq_cpuinfo / CPU_Multiplier;
-	  mvprintw (4, 0,
-			"CPU Multiplier %dx || Bus clock frequency (BCLK) %0.2f MHz \n",
-			CPU_Multiplier, BLCK);
-
-	  //Get turbo mode status by reading msr within turbo_status
-	  TURBO_MODE = turbo_status ();	//get_msr_value(CPU_NUM,IA32_MISC_ENABLE, TURBO_FLAG_high,TURBO_FLAG_low);
-
-	  //to find how many cpus are enabled, we could have used sysconf but that will just give the logical numbers
-	  //if HT is enabled then the threads of the same core have the same C-state residency number so...
-	  //Its imperative to figure out the number of physical and number of logical cores.
-	  //sysconf(_SC_NPROCESSORS_ONLN);
-
-	  //number of CPUs is as told via cpuinfo
-	  int numCPUs = numPhysicalCores;
-
-	  //Flags and other things about HT.
-	  int HT_ON;
-	  char HT_ON_str[30];
-
-	  //HT enabled if num logical > num physical cores
-	  if (numLogicalCores > numPhysicalCores)
-		{
-		  //printf("Multiplier %d \n", CPU_Multiplier);
-		  strncpy (HT_ON_str, "Hyper Threading ON\0", 30);
-		  HT_ON = 1;
-		  //printf("Multiplier %d \n", CPU_Multiplier);
-		}
-	  else
-		{
-		  //printf("Multiplier %d \n", CPU_Multiplier);
-		  strncpy (HT_ON_str, "Hyper Threading OFF\0", 30);
-		  HT_ON = 0;
-		  //printf("Multiplier %d \n", CPU_Multiplier);
-		}
-
-	  //printf("Multiplier %d \n", CPU_Multiplier);
-
-	  if (TURBO_MODE == 1)
-		{				// && (CPU_Multiplier+1)==MAX_TURBO_2C){
-		  mvprintw (5, 0, "TURBO ENABLED on %d Cores, %s\n", numPhysicalCores,
-			HT_ON_str);
-		  TRUE_CPU_FREQ = BLCK * ((double) CPU_Multiplier + 1);
-		  mvprintw (6, 0, "True Frequency %0.2f MHz (%0.2f x [%d]) \n",
-			TRUE_CPU_FREQ, BLCK, CPU_Multiplier + 1);
-		}
-	  else
-		{
-		  mvprintw (5, 0, "TURBO DISABLED on %d Cores, %s\n",
-			numPhysicalCores, HT_ON_str);
-		  TRUE_CPU_FREQ = BLCK * ((double) CPU_Multiplier);
-		  mvprintw (6, 0, "True Frequency %0.2f MHz (%0.2f x [%d]) \n",
-			TRUE_CPU_FREQ, BLCK, CPU_Multiplier);
-		}
-
-
-	  if (numCPUs >= 2)
-		 {mvprintw (7, 0,"  Max TURBO (if Enabled) with 1/2 Core  active %dx / %dx\n", MAX_TURBO_1C, MAX_TURBO_2C);}
-	  if (numCPUs >= 4)
-		 {mvprintw (8, 0,"  Max TURBO (if Enabled) with 3/4 Cores active %dx / %dx\n", MAX_TURBO_3C, MAX_TURBO_4C);}
-	  if (numCPUs >= 6)
-		 {mvprintw (9, 0,"  Max TURBO (if Enabled) with 5/6 Cores active %dx / %dx\n", MAX_TURBO_5C, MAX_TURBO_6C);}
-
-	  mvprintw (22, 0, "C0 = Processor running without halting");
-	  mvprintw (23, 0,
-			"C1 = Processor running with halts (States >C0 are power saver)");
-	  mvprintw (24, 0,
-			"C3 = Cores running with PLL turned off and core cache turned off");
-	  mvprintw (25, 0,
-			"C6 = Everything in C3 + core state saved to last level cache");
-	  mvprintw (26, 0,
-			"  Above values in table are in percentage over the last 1 sec");
-	  mvprintw (27, 0,
-			" Total Logical Cores: [%d], Total Physical Cores: [%d] \n",
-			numLogicalCores, numPhysicalCores);
-
-	  mvprintw (29, 0, "  Ctrl+C to exit");
-
-
-	  int IA32_PERF_GLOBAL_CTRL = 911;	//38F
-	  int IA32_PERF_GLOBAL_CTRL_Value =	get_msr_value (CPU_NUM, IA32_PERF_GLOBAL_CTRL, 63, 0, &error_indx);
-	  SET_IF_TRUE(error_indx,online_cpus[0],-1);
-	  int IA32_FIXED_CTR_CTL = 909;	//38D
-	  int IA32_FIXED_CTR_CTL_Value = get_msr_value (CPU_NUM, IA32_FIXED_CTR_CTL, 63, 0, &error_indx);
-	  SET_IF_TRUE(error_indx,online_cpus[0],-1);
-
-	  //printf("IA32_PERF_GLOBAL_CTRL %d\n",IA32_PERF_GLOBAL_CTRL_Value);
-	  //printf("IA32_FIXED_CTR_CTL %d\n",IA32_FIXED_CTR_CTL_Value);
-
-	  unsigned long long int CPU_CLK_UNHALTED_CORE, CPU_CLK_UNHALTED_REF,
-		CPU_CLK_C3, CPU_CLK_C6, CPU_CLK_C1;
-
-	  CPU_CLK_UNHALTED_CORE = get_msr_value (CPU_NUM, 778, 63, 0, &error_indx);
-	  SET_IF_TRUE(error_indx,online_cpus[0],-1);
-	  CPU_CLK_UNHALTED_REF = get_msr_value (CPU_NUM, 779, 63, 0, &error_indx);
-	  SET_IF_TRUE(error_indx,online_cpus[0],-1);
-
-	  unsigned long long int old_val_CORE[numCPUs], new_val_CORE[numCPUs];
-	  unsigned long long int old_val_REF[numCPUs], new_val_REF[numCPUs];
-	  unsigned long long int old_val_C3[numCPUs], new_val_C3[numCPUs];
-	  unsigned long long int old_val_C6[numCPUs], new_val_C6[numCPUs];
-	//  unsigned long int old_val_C1[numCPUs], new_val_C1[numCPUs];
-
-	  unsigned long long int old_TSC[numCPUs], new_TSC[numCPUs];
-
-	  struct timeval tvstart[numCPUs], tvstop[numCPUs];
-
-	  struct timespec one_second_sleep;
-	  one_second_sleep.tv_sec = 0;
-	  one_second_sleep.tv_nsec = 999999999;	// 1000msec
-
-
-	  unsigned long int IA32_MPERF = get_msr_value (CPU_NUM, 231, 7, 0, &error_indx);
-	  SET_IF_TRUE(error_indx,online_cpus[0],-1);
-	  unsigned long int IA32_APERF = get_msr_value (CPU_NUM, 232, 7, 0, &error_indx);
-	  SET_IF_TRUE(error_indx,online_cpus[0],-1);
-	  mvprintw (11, 0, "Wait...\n");
-	  refresh ();
-	  nanosleep (&one_second_sleep, NULL);
-	  IA32_MPERF = get_msr_value (CPU_NUM, 231, 7, 0, &error_indx) - IA32_MPERF;
-	  SET_IF_TRUE(error_indx,online_cpus[0],-1);
-	  IA32_APERF = get_msr_value (CPU_NUM, 232, 7, 0, &error_indx) - IA32_APERF;
-	  SET_IF_TRUE(error_indx,online_cpus[0],-1);
-
-	  //printf("Diff. i n APERF = %u, MPERF = %d\n", IA32_MPERF, IA32_APERF);
-
-	  long double C0_time[numCPUs], C1_time[numCPUs], C3_time[numCPUs],
-		C6_time[numCPUs];
-	  double _FREQ[numCPUs], _MULT[numCPUs];
-	  refresh ();
-
-	  mvprintw (11, 0, "Current Freqs\n");
-
-	  int kk=11, ii;
-
-	  double estimated_mhz;
-	  for (;;)
-		{
-		      SET_ONLINE_ARRAY_PLUS1(online_cpus)
-			  if (kk > 10){
-				kk=0;
-				for (ii = 0; ii < numCPUs; ii++)
-				{
-				  //Set up the performance counters and then start reading from them
-				  CPU_NUM = ii;
-				  IA32_PERF_GLOBAL_CTRL_Value =	get_msr_value (CPU_NUM, IA32_PERF_GLOBAL_CTRL, 63, 0, &error_indx);
-				  SET_IF_TRUE(error_indx,online_cpus[ii],-1);
-				  CONTINUE_IF_TRUE(online_cpus[ii]==-1);
-
-				  set_msr_value (CPU_NUM, IA32_PERF_GLOBAL_CTRL, 0x700000003LLU);
-
-				  IA32_FIXED_CTR_CTL_Value = get_msr_value (CPU_NUM, IA32_FIXED_CTR_CTL, 63, 0, &error_indx);
-				  SET_IF_TRUE(error_indx,online_cpus[ii],-1);
-				  CONTINUE_IF_TRUE(online_cpus[ii]==-1);
-
-				  set_msr_value (CPU_NUM, IA32_FIXED_CTR_CTL, 819);
-
-				  IA32_PERF_GLOBAL_CTRL_Value =	get_msr_value (CPU_NUM, IA32_PERF_GLOBAL_CTRL, 63, 0, &error_indx);
-				  SET_IF_TRUE(error_indx,online_cpus[ii],-1);
-				  CONTINUE_IF_TRUE(online_cpus[ii]==-1);
-
-                  IA32_FIXED_CTR_CTL_Value = get_msr_value (CPU_NUM, IA32_FIXED_CTR_CTL, 63, 0, &error_indx);
-				  SET_IF_TRUE(error_indx,online_cpus[ii],-1);
-				  CONTINUE_IF_TRUE(online_cpus[ii]==-1);
-
-				  old_val_CORE[ii] = get_msr_value (CPU_NUM, 778, 63, 0, &error_indx);
-				  SET_IF_TRUE(error_indx,online_cpus[ii],-1);
-				  CONTINUE_IF_TRUE(online_cpus[ii]==-1);
-
-				  old_val_REF[ii] = get_msr_value (CPU_NUM, 779, 63, 0, &error_indx);
-				  SET_IF_TRUE(error_indx,online_cpus[ii],-1);
-				  CONTINUE_IF_TRUE(online_cpus[ii]==-1);
-
-				  old_val_C3[ii] = get_msr_value (CPU_NUM, 1020, 63, 0, &error_indx);
-				  SET_IF_TRUE(error_indx,online_cpus[ii],-1);
-				  CONTINUE_IF_TRUE(online_cpus[ii]==-1);
-
-				  old_val_C6[ii] = get_msr_value (CPU_NUM, 1021, 63, 0, &error_indx);
-				  SET_IF_TRUE(error_indx,online_cpus[ii],-1);
-				  CONTINUE_IF_TRUE(online_cpus[ii]==-1);
-
-				  old_TSC[ii] = rdtsc ();
-				}
-			  }
-			  kk++;
-		  nanosleep (&one_second_sleep, NULL);
-		  mvprintw (13, 0,
-			"\tProcessor  :Actual Freq (Mult.)  C0%%   Halt(C1)%%  C3 %%   C6 %%\n");
-
-		  estimated_mhz = estimate_MHz ();
-		  for (i = 0; i < numCPUs; i++)
-			{
-			  //read from the performance counters
-			  //things like halted unhalted core cycles
-
-			  CPU_NUM = i;
-			  new_val_CORE[i] = get_msr_value (CPU_NUM, 778, 63, 0, &error_indx);
-			  SET_IF_TRUE(error_indx,online_cpus[i],-1);
-			  CONTINUE_IF_TRUE(online_cpus[i]==-1);
-
-			  new_val_REF[i] = get_msr_value (CPU_NUM, 779, 63, 0, &error_indx);
-			  SET_IF_TRUE(error_indx,online_cpus[i],-1);
-			  CONTINUE_IF_TRUE(online_cpus[i]==-1);
-
-			  new_val_C3[i] = get_msr_value (CPU_NUM, 1020, 63, 0, &error_indx);
-			  SET_IF_TRUE(error_indx,online_cpus[i],-1);
-			  CONTINUE_IF_TRUE(online_cpus[i]==-1);
-
-			  new_val_C6[i] = get_msr_value (CPU_NUM, 1021, 63, 0, &error_indx);
-			  SET_IF_TRUE(error_indx,online_cpus[i],-1);
-			  CONTINUE_IF_TRUE(online_cpus[i]==-1);
-
-              new_TSC[i] = rdtsc ();
-
-			  if (old_val_CORE[i] > new_val_CORE[i])
-		  	  {	  //handle overflow
-				  CPU_CLK_UNHALTED_CORE = (UINT64_MAX - old_val_CORE[i]) + new_val_CORE[i];
-			  }else{
-				  CPU_CLK_UNHALTED_CORE = new_val_CORE[i] - old_val_CORE[i];
-			  }
-
-			  //number of TSC cycles while its in halted state
-			  if ((new_TSC[i] - old_TSC[i]) < CPU_CLK_UNHALTED_CORE)
-					{CPU_CLK_C1 = 0;}
-			  else
-					{CPU_CLK_C1 = ((new_TSC[i] - old_TSC[i]) - CPU_CLK_UNHALTED_CORE);}
-
-			  if (old_val_REF[i] > new_val_REF[i])
-			  {   //handle overflow
-				  CPU_CLK_UNHALTED_REF = (UINT64_MAX - old_val_REF[i]) + new_val_REF[i]; //3.40282366921e38
-			  }else{
-				  CPU_CLK_UNHALTED_REF = new_val_REF[i] - old_val_REF[i];
-			  }
-
-			  if (old_val_C3[i] > new_val_C3[i])
-			  {   //handle overflow
-				  CPU_CLK_C3 = (UINT64_MAX - old_val_C3[i]) + new_val_C3[i];
-			  }else{
-				  CPU_CLK_C3 = new_val_C3[i] - old_val_C3[i];
-			  }
-
-			  if (old_val_C6[i] > new_val_C6[i])
-			  {   //handle overflow
-				  CPU_CLK_C6 = (UINT64_MAX - old_val_C6[i]) + new_val_C6[i];
-			  }else{
-				  CPU_CLK_C6 = new_val_C6[i] - old_val_C6[i];
-			  }
-
-			  _FREQ[i] =
-				estimated_mhz * ((long double) CPU_CLK_UNHALTED_CORE /
-						   (long double) CPU_CLK_UNHALTED_REF);
-			  _MULT[i] = _FREQ[i] / BLCK;
-
-			  C0_time[i] = ((long double) CPU_CLK_UNHALTED_REF /
-						   (long double) (new_TSC[i] - old_TSC[i]));
-			  C1_time[i] = ((long double) CPU_CLK_C1 /
-						   (long double) (new_TSC[i] - old_TSC[i]));
-			  C3_time[i] = ((long double) CPU_CLK_C3 /
-						   (long double) (new_TSC[i] - old_TSC[i]));
-			  C6_time[i] = ((long double) CPU_CLK_C6 /
-					 	   (long double) (new_TSC[i] - old_TSC[i]));
-
-			  if (C0_time[i] < 1e-2)
-			  {
-				if (C0_time[i] > 1e-4)	{C0_time[i] = 0.01;}
-				else					{C0_time[i] = 0;}
-			  }
-			  if (C1_time[i] < 1e-2)
-			  {
-				if (C1_time[i] > 1e-4)	{C1_time[i] = 0.01;}
-				else					{C1_time[i] = 0;}
-			  }
-			  if (C3_time[i] < 1e-2)
-			  {
-				if (C3_time[i] > 1e-4)	{C3_time[i] = 0.01;}
-				else					{C3_time[i] = 0;}
-			  }
-			  if (C6_time[i] < 1e-2)
-			  {
-				if (C6_time[i] > 1e-4)	{C6_time[i] = 0.01;}
-				else					{C6_time[i] = 0;}
-			  }
-			  //printf("%lld  - %lld", CPU_CLK_C6, (new_TSC[i] - old_TSC[i]));
-		  }
-
-		  for (i = 0; i < numCPUs; i++){
-			if(online_cpus[i]==-1){
-				mvprintw (14 + i, 0, "\tProcessor %d:  OFFLINE\n",i + 1);
-			}else{
-				mvprintw (14 + i, 0, "\tProcessor %d:  %0.2f (%.2fx)\t%4.3Lg\t%4.3Lg\t%4.3Lg\t%4.3Lg\n", i + 1, _FREQ[i], _MULT[i],
-				      C0_time[i] * 100 , C1_time[i]* 100  - (C3_time[i] + C6_time[i] )* 100, C3_time[i]* 100 , C6_time[i]* 100);	//C0_time[i]*100+C1_time[i]*100 around 100
-			}
-		  }
-
-
-		  TRUE_CPU_FREQ = 0;
-		  for (i = 0; i < numCPUs; i++)
-		  {
-			  if (_FREQ[i] > TRUE_CPU_FREQ)
-			  {
-				  TRUE_CPU_FREQ = _FREQ[i];
-				  mvprintw (12, 0,
-					"True Frequency %0.2f MHz (Intel specifies largest of below to be running Freq)\n",
-					TRUE_CPU_FREQ);
-			  }
-		  }
-
-		  refresh ();
-
-		  //shift the new values to the old counter values
-		  //so that the next time we use those to find the difference
-		  memcpy (old_val_CORE, new_val_CORE,
-			  sizeof (unsigned long int) * numCPUs);
-		  memcpy (old_val_REF, new_val_REF, sizeof (unsigned long int) * numCPUs);
-		  memcpy (old_val_C3, new_val_C3, sizeof (unsigned long int) * numCPUs);
-		  memcpy (old_val_C6, new_val_C6, sizeof (unsigned long int) * numCPUs);
-		  memcpy (tvstart, tvstop, sizeof (struct timeval) * numCPUs);
-		  memcpy (old_TSC, new_TSC, sizeof (unsigned long long int) * numCPUs);
-	  }   //ENDOF INFINITE FOR LOOP
-	  exit (0);
-	  return (1);
-}*/

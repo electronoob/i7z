@@ -1,5 +1,10 @@
-license: My code is GPLv2, Details in COPYING
-Current Version: git-93 (May/2013)
+electronoob-
+Stripped out information that I felt irrelevant to me, I just wanted
+a small clean, commandline tool, which showed me cpu mhz and usage.
+--------------------------------------------------------------------
+
+license: GPLv2, Details in COPYING
+Based on i7z Version: git-93 (May/2013)
 
 Prerequisites:
 Ivy Bridge processors seem to need phc_intel to function correctly.

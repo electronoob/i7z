@@ -30,7 +30,7 @@ char* CSTATE_LOGGING_FILE_single="cpu_cstate_log.txt";
 char* CSTATE_LOGGING_FILE_dual="cpu_cstate_log_dual_%d.txt";
 
 int Single_Socket();
-int Dual_Socket();
+//int Dual_Socket();
 
 int socket_0_num=0, socket_1_num=1;
 bool use_ncurses = true;
@@ -594,7 +594,7 @@ int main (int argc, char **argv)
             //Path for Dual Socket Code
             printf("i7z DEBUG: Dual Socket Detected\n\r");
             //Dual_Socket(&prog_options);
-            Dual_Socket();
+            //Dual_Socket();
         } else {
             //Path for Single Socket Code
             printf("i7z DEBUG: Single Socket Detected\n\r");
@@ -602,7 +602,7 @@ int main (int argc, char **argv)
             Single_Socket();
         }
     } else {
-        Dual_Socket();
+        //Dual_Socket();
     }
     return(1);
 }
